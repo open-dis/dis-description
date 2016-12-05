@@ -2849,6 +2849,21 @@
 
 <attribute name="entityAppearance" comment="a series of bit flags that are used to help draw the entity, such as smoking, on fire, etc.">
   <primitive type="unsigned int"/>
+  <flags>
+        <flag mask="0x1" name="paintScheme" comment="0 uniform color, 1 camouflage"/>
+        <flag mask="0x2" name="mobility" comment="0 no mobility kill, 1 mobility kill"/>
+        <flag mask="0x4" name="firepower" comment="0 no firepower iill, 1 firepower kill"/>
+        <flag mask="0x18" name="damage" comment="0 no damage, 1 slight damage, 2 moderate, 3 destroyed"/>
+        <flag mask="0x60" name="smoke" comment="0 no smoke, 1 smoke plume, 2 engine smoke, 3 engine smoke and plume"/>
+        <flag mask="0x180" name="trailingEffects" comment="dust cloud, 0 none 1 small 2 medium 3 large"/>
+        <flag mask="0xe00" name="hatch" comment="0 NA 1 closed popped 3 popped and person visible  4 open 5 open and person visible"/>
+        <flag mask="0x1000" name="headlights" comment="0 off 1 on"/>
+        <flag mask="0x2000" name="tailLights" comment="0 off 1 on"/>
+        <flag mask="0x4000" name="brakeLights" comment="0 off 1 on"/>
+        <flag mask="0x8000" name="flaming" comment="0 off 1 on"/>
+        <flag mask="0x10000" name="launcher" comment="0 not raised 1 raised"/>
+        <flag mask="0x60000" name="camouflageType" comment="0 desert 1 winter 2 forest 3 unused"/>
+    </flags>
 </attribute>
 
  <attribute name="deadReckoningParameters" comment="parameters used for dead reckoning">
