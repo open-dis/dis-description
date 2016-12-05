@@ -15,7 +15,7 @@ machine-readable format. The files in this directory describe the
 format of the PDUs in a way that can be read by a computer and used 
 to generate a language implementation. For example this fragment of
 XML:
-
+~~~~
 <class name="EntityID" inheritsFrom="root" comment="more laconically named EntityIdentifier">
 
   <attribute name="siteID" comment="Site ID">
@@ -31,12 +31,13 @@ XML:
   </attribute>
   
 </class>
-
+~~~~
 Can be read by a program and compiled into a lanaguage implementation
 like the below. Note that we have enough information to marshal and
 unmarshall the PDU--to change it from a binary representation to a 
 language representation, and from a Java object to a binary representation.
 
+~~~~
 package edu.nps.moves.dis7;
 
 import java.util.*;
@@ -135,14 +136,18 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 } // end of class
+~~~~
 
-
-The files in this directory may be used by several languages--Python, Java, C++, Javascript, and 
-so on. One problem that can crop up is that corrections to the XML file may appear in one 
+The files in this directory may be used by several language generators--Python, Java, C++, Javascript, and 
+so on, each of which generates different code similar to the above. One problem that can crop up is that 
+corrections to the XML file may appear in one 
 language implementation, but not others. What we want is a central place to keep the PDU
 descriptions that can be shared by all languages. In git this is usually done with a submodule.
 The repostory is set up to be automatically checked out when the git repository that contains
 it is checked out. This allows us to share the machine-readable PDU descriptions between
 multiple languages, and avoid unintended drift between languages.
+
+The repository has a very general name of "DISDescriptions" to leave open the possibility of
+using a format other than XML, such as JSON or ASN.1.
 
 See https://git-scm.com/book/en/v2/Git-Tools-Submodules for a description of git submodules.
