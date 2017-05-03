@@ -5677,7 +5677,7 @@
  <class name="RecordQueryReliablePdu" inheritsFrom="SimulationManagementWithReliabilityFamilyPdu"
     comment="Section 5.3.12.13: A request for one or more records of data from an entity. COMPLETE">
       
-   <initialValue name="pduType" value="63"/>
+   <initialValue name="pduType" value="65"/>
    
      <attribute name="requestID" comment="request ID">
      <primitive type= "unsigned int"/>
