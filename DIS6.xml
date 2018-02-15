@@ -2792,7 +2792,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
     <primitive type= "unsigned short"/>
   </attribute>
   
-  <attribute name="modulationParameterCount" comment="how many modulation parameters we have">
+  <attribute name="modulationParameterCount" comment="length of modulation parameters in octets">
     <primitive type= "unsigned byte"/>
   </attribute>
   
@@ -2806,7 +2806,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
   
   <attribute name="modulationParametersList" comment="variable length list of modulation parameters">
    <variablelist  countFieldName="modulationParameterCount">
-     <classRef name="ModulationType"/>
+     <classRef name="unsigned short"/>
    </variablelist> 
   </attribute>
   
