@@ -57,23 +57,23 @@
     <classRef name="Orientation"/>
     </attribute>
     
-    <attribute name="azimuthBeamwidth" commment="Full width of the beam to the -3dB power density points 
+    <attribute name="azimuthBeamwidth" comment="Full width of the beam to the -3dB power density points 
     in the x-y plane of the beam coordinnate system.  Elevation beamwidth is represented by a 32 bit 
     floating point number in units of radians.">
       <primitive type="float" defaultValue="0"/>
     </attribute>
     
-    <attribute name="referenceSystem" commment="The reference coordinate system wrt which beam direction 
+    <attribute name="referenceSystem" comment="The reference coordinate system wrt which beam direction 
     is specified. This field should not change over the duration of an exercise. World coordindate systemis 
     prefered for exercises. The entity coordinate system should be used only when highly directional antennas must be precisely modeled.">
       <primitive type="float" defaultValue="0"/>
     </attribute>
     
-     <attribute name="padding1" commment="Padding">
+     <attribute name="padding1" comment="Padding">
       <primitive type="short" defaultValue="0"/>
     </attribute>
     
-    <attribute name="padding2" commment="Padding">
+    <attribute name="padding2" comment="Padding">
       <primitive type="byte" defaultValue="0"/>
     </attribute>
     
@@ -100,7 +100,7 @@
        Specified the direction and radiation pattern from a radio transmitter's antenna.
        NOTE: this class must be hand-coded to clean up some implementation details.">
     
-    <attribute name="order" commment="The highest order of the expansion in spherical harmonics, couting
+    <attribute name="order" comment="The highest order of the expansion in spherical harmonics, couting
     from zero. There are 2n+1 coefficients for each order n, and a total of N^2 + 2N + 1 coefficients
     through order N.">
       <primitive type="byte"/>
