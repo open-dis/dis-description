@@ -43,7 +43,7 @@
 
 <javascript namespace="dis" directory="javascript"/>
 
-<class name="AcousticEmitter" inheritsFrom="root" comment=" information about a specific UA emmtter. Section 6.2.2.">
+<class name="AcousticEmitter" inheritsFrom="root" comment=" information about a specific UA emitter. Section 6.2.2.">
     
     <attribute name="acousticSystemName" comment="the system for a particular UA emitter, and an enumeration">
       <primitive type="unsigned short"/>
@@ -100,7 +100,7 @@
         <primitive type="unsigned short"/>
     </attribute>
     
-    <attribute name="category" comment = "category of entity">
+    <attribute name="category" comment="category of entity">
         <primitive type="unsigned byte"/>
     </attribute>
     
@@ -424,13 +424,13 @@
       <primitive type="unsigned int"/>
   </attribute>
 
-  <attribute name="fixedDatumList" comment="variable length list fixed datums">
+  <attribute name="fixedDatumIDList" comment="variable length list fixed datums">
      <list type="variable" countFieldName="numberOfFixedDatums">
        <classRef name="FixedDatum"/>
     </list> 
   </attribute>
   
-  <attribute name="variableDatumList" comment="variable length list variable datums. See 6.2.93">
+  <attribute name="variableDatumIDList" comment="variable length list variable datums. See 6.2.93">
      <list type="variable" countFieldName="numberOfVariableDatums">
        <classRef name="VariableDatum"/>
     </list> 
@@ -538,6 +538,7 @@
     </list> 
    </attribute>
    
+   <!-- Needs to be padding to a 64 bit boundary here -->
     
 </class>
 
@@ -631,7 +632,7 @@
        comment="The Blanking Sector attribute record may be used to convey persistent areas within a scan volume where emitter power for a specific active emitter beam is reduced to an insignificant value. Section 6.2.21.2">
        
     <attribute name="recordType" comment="record type">
-      <primitive type="int"  defaultValue="3500"/>
+      <primitive type="int" defaultValue="3500"/>
     </attribute>
     
      <attribute name="recordLength" comment="the length of the Blanking Sector attribute record in octets.">
@@ -693,15 +694,15 @@
         comment="The Angle Deception attribute record may be used to communicate discrete values that are associated with angle deception jamming that cannot be referenced to an emitter mode. The values provided in the record records (provided in the associated Electromagnetic Emission PDU). (The victim radar beams are those that are targeted by the jammer.) Section 6.2.21.2.2">
   
     <attribute name="recordType" comment="record type">
-      <primitive type="unsigned int"  defaultValue="3501"/>
+      <primitive type="unsigned int" defaultValue="3501"/>
     </attribute>
     
      <attribute name="recordLength" comment="the length of the record in octets.">
-      <primitive type="unsigned short"  defaultValue="48"/>
+      <primitive type="unsigned short" defaultValue="48"/>
     </attribute>
     
      <attribute name="padding" comment="padding">
-      <primitive type="unsigned short"  defaultValue="0"/>
+      <primitive type="unsigned short" defaultValue="0"/>
     </attribute>
     
      <attribute name="emitterNumber" comment="indicates the emitter system for which the angle deception values are applicable. ">
@@ -717,7 +718,7 @@
     </attribute>
     
     <attribute name="padding2" comment="padding">
-      <primitive type="unsigned byte"  defaultValue="0"/>
+      <primitive type="unsigned byte" defaultValue="0"/>
     </attribute>
     
      <attribute name="azimuthOffset" comment="This field indicates the relative azimuth angle at which the deceptive radar returns are centered. This angle is measured in the X-Y plane of the victim radar's entity coordinate system (see 1.4.3). This angle is measured in radians from the victim radar entity's azimuth for the true jam- mer position to the center of the range of azimuths in which deceptive radar returns are perceived as shown in Figure 43. Positive and negative values indicate that the perceived positions of the jammer are right and left of the true position of the jammer, respectively. The range of permissible values is -PI to PI">
@@ -762,15 +763,15 @@
        comment="The False Targets attribute record shall be used to communicate discrete values that are associated with false targets jamming that cannot be referenced to an emitter mode. The values provided in the False Targets attri- bute record shall be considered valid only for the victim radar beams listed in the jamming beam's Track/Jam Data records (provided in the associated Electromagnetic Emission PDU). Section 6.2.21.3">
        
     <attribute name="recordType" comment="record type">
-      <primitive type="unsigned int"  defaultValue="3502"/>
+      <primitive type="unsigned int" defaultValue="3502"/>
     </attribute>
     
      <attribute name="recordLength" comment="the length of the record in octets.">
-      <primitive type="unsigned short"  defaultValue="40"/>
+      <primitive type="unsigned short" defaultValue="40"/>
     </attribute>
     
      <attribute name="padding" comment="padding">
-      <primitive type="unsigned short"  defaultValue="0"/>
+      <primitive type="unsigned short" defaultValue="0"/>
     </attribute>
     
      <attribute name="emitterNumber" comment="This field indicates the emitter system generating the false targets.">
@@ -786,7 +787,7 @@
     </attribute>
     
     <attribute name="padding2" comment="padding">
-      <primitive type="unsigned byte"  defaultValue="0"/>
+      <primitive type="unsigned byte" defaultValue="0"/>
     </attribute>
     
      <attribute name="falseTargetCount" comment="This field indicates the jamming beam generating the false targets. ">
@@ -978,7 +979,7 @@
         <primitive type="unsigned short"/>
     </attribute>
     
-    <attribute name="category" comment = "category of entity">
+    <attribute name="category" comment="category of entity">
         <primitive type="unsigned byte"/>
     </attribute>
     
@@ -1042,7 +1043,7 @@
  </attribute>
  
   <attribute name="padding" comment="padding">
-      <primitive type="unsigned byte" defaultValue = "0"/>
+      <primitive type="unsigned byte" defaultValue="0"/>
  </attribute>
     
 <!-- Add geometry or state record field -->
@@ -1066,7 +1067,7 @@
         <primitive type="unsigned short"/>
     </attribute>
     
-    <attribute name="category" comment = "category of entity">
+    <attribute name="category" comment="category of entity">
         <primitive type="unsigned byte"/>
     </attribute>
     
@@ -1318,9 +1319,9 @@
     </attribute>
     
     <attribute name="xiValues" comment="list of coordinates">
-        <variablelist countFieldName="numberOfPointsOnXiAxis">
+        <list type="variable" countFieldName="numberOfPointsOnXiAxis">
             <classRef name="TwoByteChunk"/>
-        </variablelist> 
+        </list> 
     </attribute>
     
     <!-- Need something to pad to 64 bit boundary here --> 
@@ -1353,9 +1354,9 @@
   </attribute>
   
    <attribute name="iffData" comment="IFF data.">
-       <variablelist countFieldName="recordLength">
+       <list type="variable" countFieldName="recordLength">
            <classRef name="OneByteChunk"/>
-       </variablelist>
+       </list>
   </attribute>
   
   <!-- Need something here to pad to a 32 bit boundary -->
@@ -1372,9 +1373,9 @@
   </attribute>
   
   <attribute name="iffDataRecords" comment="IFF data records">
-       <variablelist countFieldName="numberOfIffDataRecords">
+       <list type="variable" countFieldName="numberOfIffDataRecords">
            <classRef name="IFFData"/>
-       </variablelist>
+       </list>
   </attribute>
 
 </class>
@@ -1406,9 +1407,9 @@
     </attribute>
     
     <attribute name="systemSpecificData" comment="System-specific data">
-        <fixedlist length="3">
+        <list type="fixed" length="3">
             <primitive type="unsigned byte"/>
-        </fixedlist>
+        </list>
     </attribute>
 
 </class>
@@ -1607,11 +1608,11 @@
        inheritsFrom="root" 
        comment="The specification of an individual segment of a linear segment synthetic environment object in a Linear Object State PDU Section 6.2.52">
 
-     <attribute name="segmentNumber" comment="the individual segment of the linear segment "  >
+     <attribute name="segmentNumber" comment="the individual segment of the linear segment">
          <primitive type="unsigned byte"/>
      </attribute>
      
-     <attribute name="segmentModification" comment=" whether a modification has been made to the point object’s location or orientation">
+     <attribute name="segmentModification" comment=" whether a modification has been made to the point object's location or orientation">
          <primitive type="unsigned byte"/>
      </attribute>
 
@@ -1802,7 +1803,7 @@
 <class name="NamedLocationIdentification" inheritsFrom="root"
        comment="Information about the discrete positional relationship of the part entity with respect to the its host entity Section 6.2.62 ">
  
-  <attribute name="stationName" comment="the station name within the host at which the part entity is located. If the part entity is On Station, this field shall specify the representation of the part’s location data fields. This field shall be specified by a 16-bit enumeration ">
+  <attribute name="stationName" comment="the station name within the host at which the part entity is located. If the part entity is On Station, this field shall specify the representation of the part's location data fields. This field shall be specified by a 16-bit enumeration ">
          <primitive type="unsigned short"/>
  </attribute>
  
@@ -1837,7 +1838,7 @@
         <primitive type="unsigned byte"/>
     </attribute>
 
-    <attribute name="category" comment = "category of entity">
+    <attribute name="category" comment="category of entity">
         <primitive type="unsigned byte"/>
     </attribute>
 
@@ -1973,7 +1974,7 @@
  <primitive type="unsigned short"/>
 </attribute>
 
-<attribute name="category" comment = "category of entity">
+<attribute name="category" comment="category of entity">
   <primitive type="unsigned byte"/>
 </attribute>
 
@@ -1999,9 +2000,9 @@
 </attribute>
 
 <attribute name="records" comment="variable length list of 32 bit records">
-   <variablelist countFieldName="numberOfRecords">
+   <list type="variable" countFieldName="numberOfRecords">
      <classRef name="FourByteChunk"/>
-   </variablelist> 
+   </list> 
 </attribute>
 
 </class>
@@ -2044,9 +2045,9 @@
   </attribute>
 
   <attribute name="recordSets" comment="variable length list record specifications.">
-     <variablelist countFieldName="numberOfRecordSets">
+     <list type="variable" countFieldName="numberOfRecordSets">
        <classRef name="RecordSpecificationElement"/>
-    </variablelist>
+    </list>
   </attribute>
 
 </class>
@@ -2139,9 +2140,9 @@
     </attribute>
     
     <attribute name="appearanceRecordList" comment="Variable length list of appearance records">
-     <variablelist countFieldName="numberOfAppearanceRecords">
+     <list type="variable" countFieldName="numberOfAppearanceRecords">
        <classRef name="FourByteChunk"/>
-     </variablelist> 
+     </list> 
     </attribute>
     
 </class>
@@ -2201,9 +2202,9 @@
    </attribute>
    
   <attribute name="standardVariables" comment="variable length list of standard variables, The class type and length here are WRONG and will cause the incorrect serialization of any class in whihc it is embedded.">
-   <variablelist countFieldName="numberOfStandardVariableRecords">
+   <list type="variable" countFieldName="numberOfStandardVariableRecords">
      <classRef name="SimulationManagementPduHeader"/> <!-- This is WRONG, as in the wrong type of class in the list -->
-   </variablelist> 
+   </list> 
 </attribute>
 
    
@@ -2402,19 +2403,21 @@
        inheritsFrom="root" 
        comment="the variable datum type, the datum length, and the value for that variable datum type. NOT COMPLETE. Section 6.2.93">
 
-  <attribute name="variableDatumID" comment="ID of variable datum to be transmitted. 32 bit enumeration defined in EBV">
+  <attribute name="variableDatumID" comment="Type of variable datum to be transmitted. 32 bit enumeration defined in EBV">
       <primitive type="unsigned int"/>
   </attribute>
 
   <attribute name="variableDatumLength" comment="Length, IN BITS, of the variable datum.">
     <primitive type="unsigned int"/>
   </attribute>
-  
-   <attribute name="variableDatumData" comment="Variable length data class">
-       <variablelist countFieldName="variableDatumLength" units="bits" padToBoundary="64">
+
+  <attribute name="variableDatumData" comment="Variable length data class">
+    <list type="variable" countFieldName="variableDatumLength" units="bits" padToBoundary="64">
           <classRef name="OneByteChunk"/>
-       </variablelist>
-   </attribute>
+    </list>
+  </attribute>
+
+
 
 </class>
 
@@ -2608,7 +2611,7 @@
 
 <class name="Vector3Float" inheritsFrom="root" comment="Three floating point values, x, y, and z. Section 6.2.95">
     
-  <attribute name="x" comment = "X value">
+  <attribute name="x" comment="X value">
     <primitive type="float"/>
   </attribute>
 
@@ -2624,7 +2627,7 @@
 
 <class name="Vector2Float" inheritsFrom="root" comment="Two floating point values, x, y">
     
-  <attribute name="x" comment = "X value">
+  <attribute name="x" comment="X value">
     <primitive type="float"/>
   </attribute>
 
@@ -2647,7 +2650,7 @@
 </class>
 
  <class name="Vector3Double" inheritsFrom="root" comment="Three double precision floating point values, x, y, and z. Used for world coordinates Section 6.2.97.">
-  <attribute name="x" comment = "X value">
+  <attribute name="x" comment="X value">
     <primitive type="double"/>
   </attribute>
 
@@ -2669,9 +2672,9 @@
   </attribute>
 
  <attribute name="parameters" comment="Dead reckoning parameters. Contents depends on algorithm.">
-     <fixedlist length="15">
+     <list type="fixed" length="15">
        <primitive type="unsigned byte"/>
-     </fixedlist>
+     </list>
   </attribute>
 
   <attribute name="entityLinearAcceleration" comment="Linear acceleration of the entity">
@@ -2689,33 +2692,33 @@
   
   <class name="EightByteChunk" inheritsFrom="root" comment="64 bit piece of data">
      <attribute name="otherParameters" comment="Eight bytes of arbitrary data">
-       <fixedlist length="8">
+       <list type="fixed" length="8">
         <primitive type="byte"/>
-       </fixedlist>
+       </list>
      </attribute>
    </class>
    
    <class name="OneByteChunk" inheritsFrom="root" comment="8 bit piece of data">
      <attribute name="otherParameters" comment="one byte of arbitrary data">
-       <fixedlist length="1">
+       <list type="fixed" length="1">
         <primitive type="byte"/>
-       </fixedlist>
+       </list>
      </attribute>
    </class>
    
     <class name="TwoByteChunk" inheritsFrom="root" comment="16 bit piece of data">
      <attribute name="otherParameters" comment="two bytes of arbitrary data">
-       <fixedlist length="2">
+       <list type="fixed" length="2">
         <primitive type="byte"/>
-       </fixedlist>
+       </list>
      </attribute>
    </class>
    
     <class name="FourByteChunk" inheritsFrom="root" comment="32 bit piece of data">
      <attribute name="otherParameters" comment="four bytes of arbitrary data">
-       <fixedlist length="4">
+       <list type="fixed" length="4">
         <primitive type="byte"/>
-       </fixedlist>
+       </list>
      </attribute>
    </class>
    
@@ -2723,15 +2726,15 @@
 <class name="PduStream" inheritsFrom="root" comment="Non-DIS class, used on SQL databases. This is not in the DIS standard but can be helpful when saving DIS to a SQL database, particularly in Java.">
 
  <attribute name="description" comment="Longish description of this PDU stream">
-   <fixedlist length="512" couldBeString="true">
+   <list type="fixed" length="512" couldBeString="true">
      <primitive type="byte"/>
-   </fixedlist>
+   </list>
  </attribute>
 
  <attribute name="name" comment="short description of this PDU stream">
-   <fixedlist length="256" couldBeString="true">
+   <list type="fixed" length="256" couldBeString="true">
      <primitive type="byte"/>
-   </fixedlist>
+   </list>
  </attribute>
 
   <attribute name="startTime" comment="Start time of recording, in Unix time (seconds since epoch)">
@@ -2881,9 +2884,9 @@
 </attribute>
 
   <attribute name="variableParameters" comment="variable length list of variable parameters. In earlier DIS versions this was articulation parameters.">
-   <variablelist countFieldName="numberOfVariableParameters">
+   <list type="variable" countFieldName="numberOfVariableParameters">
      <classRef name="VariableParameter"/>
-   </variablelist> 
+   </list> 
 </attribute>
 
 </class>
@@ -2924,7 +2927,7 @@
         <primitive type="unsigned short"/>
     </attribute>
     
-    <attribute name="category" comment = "category of entity">
+    <attribute name="category" comment="category of entity">
         <primitive type="unsigned byte"/>
     </attribute>
     
@@ -2953,7 +2956,7 @@
         <primitive type="unsigned short"/>
     </attribute>
     
-    <attribute name="altCategory" comment = "category of entity">
+    <attribute name="altCategory" comment="category of entity">
         <primitive type="unsigned byte"/>
     </attribute>
     
@@ -2970,7 +2973,7 @@
     </attribute>
 
 
-  <attribute name="xVelocity" comment = "X velo">
+  <attribute name="xVelocity" comment="X velo">
     <primitive type="float"/>
   </attribute>
   
@@ -2982,7 +2985,7 @@
     <primitive type="float"/>
   </attribute>
 
-  <attribute name="xLocation" comment = "X value">
+  <attribute name="xLocation" comment="X value">
     <primitive type="double"/>
   </attribute>
   
@@ -3017,12 +3020,12 @@
 </attribute>
   
 <attribute name="otherParameters" comment="other parameters to use in the dead reckoning algorithm">
-   <fixedlist length="15">
+   <list type="fixed" length="15">
      <primitive type="byte"/>
-   </fixedlist>
+   </list>
 </attribute>
 
-<attribute name="xAcceleration" comment = "X value">
+<attribute name="xAcceleration" comment="X value">
     <primitive type="float"/>
   </attribute>
   
@@ -3035,7 +3038,7 @@
   </attribute>
 
 
-<attribute name="xAngularVelocity" comment = "X value">
+<attribute name="xAngularVelocity" comment="X value">
     <primitive type="float"/>
   </attribute>
   
@@ -3048,9 +3051,9 @@
   </attribute>
 
  <attribute name="marking" comment="characters that can be used for debugging, or to draw unique strings on the side of entities in the world">
-   <fixedlist length="12" couldBeString="true">
+   <list type="fixed" length="12" couldBeString="true">
      <primitive type="byte"/>
-   </fixedlist>
+   </list>
  </attribute>
  
  <attribute name="capabilities" comment="a series of bit flags">
@@ -3058,9 +3061,9 @@
 </attribute>
 
   <attribute name="variableParameters" comment="variable length list of variable parameters. In earlier versions of DIS these were known as articulation parameters">
-   <variablelist countFieldName="numberOfVariableParameters">
+   <list type="variable" countFieldName="numberOfVariableParameters">
      <classRef name="VariableParameter"/>
-   </variablelist> 
+   </list> 
 </attribute>
 
 </class>
@@ -3089,7 +3092,7 @@
   </attribute>
 
   <attribute name="pad" comment="some padding">
-    <primitive type="byte" defaultValue = "0"/>
+    <primitive type="byte" defaultValue="0"/>
   </attribute>
 
   <attribute name="velocity" comment="This field shall contain the velocity (at the time the collision is detected) of the issuing entity. The velocity shall be represented in world coordinates. This field shall be represented by the Linear Velocity Vector record [see 6.2.95 item c)].">
@@ -3124,7 +3127,7 @@
   </attribute>
 
   <attribute name="pad" comment="some padding">
-    <primitive type="short" defaultValue = "0"/>
+    <primitive type="short" defaultValue="0"/>
   </attribute>
 
   <attribute name="contactVelocity" comment="This field shall contain the velocity at the time the collision is detected at the point the collision is detected. The velocity shall be represented in world coordinates. This field shall be represented by the Linear Velocity Vector record [see 6.2.95 item c)]">
@@ -3167,7 +3170,7 @@
     <classRef name="Vector3Float"/>
   </attribute>
 
-  <attribute name="coefficientOfRestitution" comment="This field shall represent the degree to which energy is conserved in a collision and shall be represented by a 32-bit floating point number. In addition, it represents a free parameter by which simulation application developers may “tune” their collision interactions.">
+  <attribute name="coefficientOfRestitution" comment="This field shall represent the degree to which energy is conserved in a collision and shall be represented by a 32-bit floating point number. In addition, it represents a free parameter by which simulation application developers may &quot;tune&quot; their collision interactions.">
     <primitive type="float"/>
   </attribute>
 
@@ -3190,26 +3193,26 @@
       <primitive type="unsigned byte"/>
    </attribute>
 
-   <attribute name="entityLinearVelocity" comment="This field shall specify an entity’s linear velocity. The coordinate system for an entity’s linear velocity depends on the dead reckoning algorithm used. This field shall be represented by a Linear Velocity Vector record [see 6.2.95 item c)]).">
+   <attribute name="entityLinearVelocity" comment="This field shall specify an entity's linear velocity. The coordinate system for an entity's linear velocity depends on the dead reckoning algorithm used. This field shall be represented by a Linear Velocity Vector record [see 6.2.95 item c)]).">
      <classRef name="Vector3Float"/>
    </attribute>
 
-   <attribute name="entityLocation" comment="This field shall specify an entity’s physical location in the simulated world and shall be represented by a World Coordinates record (see 6.2.97).">
+   <attribute name="entityLocation" comment="This field shall specify an entity's physical location in the simulated world and shall be represented by a World Coordinates record (see 6.2.97).">
      <classRef name="Vector3Double"/>
    </attribute>
 
-   <attribute name="entityOrientation" comment="This field shall specify an entity’s orientation and shall be represented by an Euler Angles record (see 6.2.33).">
+   <attribute name="entityOrientation" comment="This field shall specify an entity's orientation and shall be represented by an Euler Angles record (see 6.2.33).">
      <classRef name="EulerAngles"/>
    </attribute>
 
-   <attribute name="entityAppearance" comment="This field shall specify the dynamic changes to the entity’s appearance attributes. This field shall be represented by an Entity Appearance record (see 6.2.26).">
+   <attribute name="entityAppearance" comment="This field shall specify the dynamic changes to the entity's appearance attributes. This field shall be represented by an Entity Appearance record (see 6.2.26).">
      <primitive type="unsigned int"/>
    </attribute>
 
     <attribute name="variableParameters" comment="This field shall specify the parameter values for each Variable Parameter record that is included (see 6.2.93 and Annex I).">
-     <variablelist countFieldName="numberOfVariableParameters">
+     <list type="variable" countFieldName="numberOfVariableParameters">
        <classRef name="VariableParameter"/>
-     </variablelist>
+     </list>
    </attribute>
 
 </class>
@@ -3299,7 +3302,7 @@
     <classRef name="Vector3Float"/>
   </attribute>
 
-  <attribute name="range" comment="This field shall specify the range that an entity’s fire control system has assumed in computing the fire control solution. This field shall be represented by a 32-bit floating point number in meters. For systems where range is unknown or unavailable, this field shall contain a value of zero.">
+  <attribute name="range" comment="This field shall specify the range that an entity's fire control system has assumed in computing the fire control solution. This field shall be represented by a 32-bit floating point number in meters. For systems where range is unknown or unavailable, this field shall contain a value of zero.">
     <primitive type="float"/>
   </attribute>
 
@@ -3360,9 +3363,9 @@
   </attribute>
 
    <attribute name="variableParameters" comment="specify the parameter values for each Variable Parameter record, Section 7.3.3 ">
-     <variablelist countFieldName="numberOfVariableParameters">
+     <list type="variable" countFieldName="numberOfVariableParameters">
        <classRef name="VariableParameter"/>
-     </variablelist>
+     </list>
    </attribute>
 
   </class>
@@ -3435,9 +3438,9 @@
 </attribute>
 
   <attribute name="dERecords" comment="Fields shall contain one or more DE records, records shall conform to the variable record format (Section6.2.82), Section 7.3.4">
-   <variablelist countFieldName="numberOfDERecords">
+   <list type="variable" countFieldName="numberOfDERecords">
      <classRef name="StandardVariableSpecification"/>
-   </variablelist>
+   </list>
 </attribute>
  </class>
 
@@ -3471,9 +3474,9 @@
 
    <attribute name="damageDescriptionRecords"
               comment="Fields shall contain one or more Damage Description records (see 6.2.17) and may contain other Standard Variable records, Section 7.3.5">
-     <variablelist countFieldName="numberOfDamageDescription"> 
+     <list type="variable" countFieldName="numberOfDamageDescription"> 
        <classRef name="DirectedEnergyDamage"/>
-     </variablelist>
+     </list>
    </attribute>
 
 </class>
@@ -3513,13 +3516,13 @@
   </attribute>
 
   <attribute name="serviceRequestPadding" comment="padding">
-    <primitive type="short" defaultValue = "0"/>
+    <primitive type="short" defaultValue="0"/>
   </attribute>
 
   <attribute name="supplies" comment="Field shall specify the type of supply and the amount of that supply for the number specified in the numberOfSupplyTypes (see 6.2.85), Section 7.4.2">
-     <variablelist countFieldName="numberOfSupplyTypes" >
+     <list type="variable" countFieldName="numberOfSupplyTypes">
        <classRef name="SupplyQuantity"/>
-     </variablelist>
+     </list>
   </attribute>
 
 </class>
@@ -3552,14 +3555,14 @@
  </attribute>
 
  <attribute name="padding2" comment="padding">
-   <primitive type="short" defaultValue = "0"/>
+   <primitive type="short" defaultValue="0"/>
  </attribute>
 
 <attribute name="supplies"
             comment="A Reord that Specifies the type of supply and the amount of that supply for each of the supply types in numberOfSupplyTypes (see 6.2.85), Section 7.4.3">
-   <variablelist countFieldName="numberOfSupplyTypes">
+   <list type="variable" countFieldName="numberOfSupplyTypes">
      <classRef name="SupplyQuantity"/>
-   </variablelist>
+   </list>
 </attribute>
 
 </class>
@@ -3592,9 +3595,9 @@
  </attribute>
 
  <attribute name="supplies" comment="Type and amount of supplies for each specified supply type.  See 6.2.85 for supply quantity record.">
-   <variablelist countFieldName="numberOfSupplyTypes">
+   <list type="variable" countFieldName="numberOfSupplyTypes">
      <classRef name="SupplyQuantity"/>
-   </variablelist>
+   </list>
 </attribute>
 </class>
 
@@ -3769,15 +3772,15 @@
   </attribute>
 
   <attribute name="fixedDatums" comment="variable length list of fixed datums">
-   <variablelist countFieldName="numberOfFixedDatumRecords">
+   <list type="variable" countFieldName="numberOfFixedDatumRecords">
      <classRef name="FixedDatum"/>
-   </variablelist>
+   </list>
   </attribute>
 
   <attribute name="variableDatums" comment="variable length list of variable length datums">
-   <variablelist countFieldName="numberOfVariableDatumRecords">
+   <list type="variable" countFieldName="numberOfVariableDatumRecords">
      <classRef name="VariableDatum"/>
-   </variablelist>
+   </list>
   </attribute>
 
 </class>
@@ -3803,15 +3806,15 @@
   </attribute>
 
   <attribute name="fixedDatums" comment="variable length list of fixed datums">
-   <variablelist countFieldName="numberOfFixedDatumRecords">
+   <list type="variable" countFieldName="numberOfFixedDatumRecords">
      <classRef name="FixedDatum"/>
-   </variablelist>
+   </list>
   </attribute>
 
   <attribute name="variableDatums" comment="variable length list of variable length datums">
-   <variablelist countFieldName="numberOfVariableDatumRecords">
+   <list type="variable" countFieldName="numberOfVariableDatumRecords">
      <classRef name="VariableDatum"/>
-   </variablelist>
+   </list>
   </attribute>
 
   </class>
@@ -3839,15 +3842,15 @@
   </attribute>
   
   <attribute name="fixedDatums" comment="variable length list of fixed datums">
-   <variablelist countFieldName="numberOfFixedDatumRecords">
+   <list type="variable" countFieldName="numberOfFixedDatumRecords">
      <classRef name="FixedDatum"/>
-   </variablelist> 
+   </list> 
   </attribute>
   
   <attribute name="variableDatums" comment="variable length list of variable length datums">
-   <variablelist countFieldName="numberOfVariableDatumRecords">
+   <list type="variable" countFieldName="numberOfVariableDatumRecords">
      <classRef name="VariableDatum"/>
-   </variablelist> 
+   </list> 
   </attribute>
 
 </class>
@@ -3874,15 +3877,15 @@
   </attribute>
   
   <attribute name="fixedDatums" comment="variable length list of fixed datums">
-   <variablelist  countFieldName="numberOfFixedDatumRecords">
+   <list type="variable" countFieldName="numberOfFixedDatumRecords">
      <classRef name="FixedDatum"/>
-   </variablelist> 
+   </list> 
   </attribute>
   
   <attribute name="variableDatums" comment="variable length list of variable length datums">
-   <variablelist countFieldName="numberOfVariableDatumRecords">
+   <list type="variable" countFieldName="numberOfVariableDatumRecords">
      <classRef name="VariableDatum"/>
-   </variablelist> 
+   </list> 
   </attribute>
 
 </class>
@@ -3909,15 +3912,15 @@
   </attribute>
   
    <attribute name="fixedDatums" comment="variable length list of fixed datums">
-   <variablelist countFieldName="numberOfFixedDatumRecords">
+   <list type="variable" countFieldName="numberOfFixedDatumRecords">
      <classRef name="FixedDatum"/>
-   </variablelist> 
+   </list> 
   </attribute>
   
   <attribute name="variableDatums" comment="variable length list of variable length datums">
-   <variablelist countFieldName="numberOfVariableDatumRecords">
+   <list type="variable" countFieldName="numberOfVariableDatumRecords">
      <classRef name="VariableDatum"/>
-   </variablelist> 
+   </list> 
   </attribute>
   
 </class>
@@ -3944,15 +3947,15 @@
   </attribute>
   
   <attribute name="fixedDatums" comment="variable length list of fixed datums">
-   <variablelist  countFieldName="numberOfFixedDatumRecords">
+   <list type="variable" countFieldName="numberOfFixedDatumRecords">
      <classRef name="FixedDatum"/>
-   </variablelist> 
+   </list> 
   </attribute>
   
   <attribute name="variableDatums" comment="variable length list of variable length datums">
-   <variablelist  countFieldName="numberOfVariableDatumRecords">
+   <list type="variable" countFieldName="numberOfVariableDatumRecords">
      <classRef name="VariableDatum"/>
-   </variablelist> 
+   </list> 
   </attribute>
 
 </class>
@@ -3971,20 +3974,20 @@
   </attribute>
   
   <attribute name="fixedDatums" comment="variable length list of fixed datums">
-   <variablelist countFieldName="numberOfFixedDatumRecords">
+   <list type="variable" countFieldName="numberOfFixedDatumRecords">
      <classRef name="FixedDatum"/>
-   </variablelist> 
+   </list> 
   </attribute>
   
   <attribute name="variableDatums" comment="variable length list of variable length datums">
-   <variablelist countFieldName="numberOfVariableDatumRecords">
+   <list type="variable" countFieldName="numberOfVariableDatumRecords">
      <classRef name="VariableDatum"/>
-   </variablelist> 
+   </list> 
   </attribute>
 
 </class>
 
-<class name="DistributedEmissionsFamilyPdu" inheritsFrom="Pdu"  comment="Section 5.3.7. Electronic Emissions. Abstract superclass for distirubted emissions PDU">
+<class name="DistributedEmissionsFamilyPdu" inheritsFrom="Pdu" comment="Section 5.3.7. Electronic Emissions. Abstract superclass for distributed emissions PDU">
    <initialValue name="protocolFamily" value="6"/>
 </class>
 
@@ -4033,9 +4036,9 @@
   </attribute>
  
    <attribute name="systems" comment="Electronic emmissions systems THIS IS WRONG. It has the WRONG class type and will cause problems in any marshalling.">
-      <variablelist countFieldName="numberOfSystems">
+      <list type="variable" countFieldName="numberOfSystems">
           <classRef name="Vector3Float"/> <!--THIS IS WRONG-->
-      </variablelist>
+      </list>
   </attribute>
   
  </class>
@@ -4138,21 +4141,21 @@
     </attribute>
   
   <attribute name="shaftRPMs" comment="shaft RPM values. THIS IS WRONG. It has the wrong class in the list.">
-      <variablelist countFieldName="numberOfShafts">
+      <list type="variable" countFieldName="numberOfShafts">
           <classRef name="Vector3Float"/>
-      </variablelist>
+      </list>
   </attribute>
   
   <attribute name="apaData" comment="apaData. THIS IS WRONG. It has the worng class in the list.">
-      <variablelist countFieldName="numberOfAPAs">
+      <list type="variable" countFieldName="numberOfAPAs">
           <classRef name="Vector3Float"/>
-      </variablelist>
+      </list>
   </attribute>
   
     <attribute name="emitterSystems" comment="THIS IS WRONG. It has the wrong class in the list.">
-        <variablelist countFieldName="numberOfUAEmitterSystems">
+        <list type="variable" countFieldName="numberOfUAEmitterSystems">
             <classRef name="Vector3Float"/>
-        </variablelist>
+        </list>
     </attribute>
     
 </class>
@@ -4205,9 +4208,9 @@
   </attribute> 
   
    <attribute name="fundamentalIffParameters" comment="variable length list of fundamental parameters. ^^^This is wrong">
-   <variablelist countFieldName="pad2">
+   <list type="variable" countFieldName="pad2">
      <classRef name="FundamentalParameterDataIff"/>
-   </variablelist> 
+   </list> 
   </attribute>
 
 </class>
@@ -4242,15 +4245,15 @@
   </attribute>   
   
   <attribute name="propulsionSystemData" comment="variable length list of propulsion system data">
-   <variablelist countFieldName="numberOfPropulsionSystems">
+   <list type="variable" countFieldName="numberOfPropulsionSystems">
      <classRef name="PropulsionSystemData"/>
-   </variablelist> 
+   </list> 
   </attribute>
   
   <attribute name="vectoringSystemData" comment="variable length list of vectoring system data">
-   <variablelist countFieldName="numberOfVectoringNozzleSystems">
+   <list type="variable" countFieldName="numberOfVectoringNozzleSystems">
      <classRef name="VectoringNozzleSystem"/>
-   </variablelist> 
+   </list> 
   </attribute>
        
 </class>
@@ -4298,9 +4301,9 @@
   </attribute>
  
   <attribute name="data" comment="data bytes">
-     <variablelist countFieldName="dataLength">
+     <list type="variable" countFieldName="dataLength">
        <classRef name="OneByteChunk"/>
-    </variablelist> 
+    </list> 
     </attribute>
 </class>
 
@@ -4389,15 +4392,15 @@
   </attribute>
   
   <attribute name="modulationParametersList" comment="variable length list of modulation parameters">
-   <variablelist countFieldName="modulationParameterCount">
+   <list type="variable" countFieldName="modulationParameterCount">
      <classRef name="Vector3Float"/>
-   </variablelist> 
+   </list> 
   </attribute>
   
   <attribute name="antennaPatternList" comment="variable length list of antenna pattern records">
-   <variablelist countFieldName="antennaPatternCount">
+   <list type="variable" countFieldName="antennaPatternCount">
      <classRef name="Vector3Float"/>
-   </variablelist> 
+   </list> 
   </attribute>       
 </class>
 
@@ -4428,9 +4431,9 @@
   </attribute>
   
   <attribute name="data" comment="list of eight bit values">
-    <variablelist countFieldName="dataLength">
+    <list type="variable" countFieldName="dataLength">
        <classRef name="OneByteChunk"/>
-    </variablelist>
+    </list>
   </attribute>
  
 </class>
@@ -4515,9 +4518,9 @@
   </attribute>
   
    <attribute name="intercomParameters" comment="^^^This is wrong the length of the data field is variable. Using a long for now.">
-     <variablelist countFieldName="intercomParametersLength">
+     <list type="variable" countFieldName="intercomParametersLength">
        <classRef name="IntercomCommunicationsParameters"/>
-    </variablelist> 
+    </list> 
     </attribute>
     </class>
 
@@ -4594,15 +4597,15 @@
   </attribute>
   
   <attribute name="aggregateIDList" comment="aggregates  list">
-     <variablelist countFieldName="numberOfDisAggregates">
+     <list type="variable" countFieldName="numberOfDisAggregates">
        <classRef name="AggregateID"/>
-    </variablelist> 
+    </list> 
     </attribute>
   
    <attribute name="entityIDList" comment="entity ID list">
-     <variablelist countFieldName="numberOfDisEntities">
+     <list type="variable" countFieldName="numberOfDisEntities">
        <classRef name="EntityID"/>
-    </variablelist> 
+    </list> 
     </attribute>
     
     <attribute name="pad2" comment="^^^padding to put the start of the next list on a 32 bit boundary. This needs to be fixed">
@@ -4610,15 +4613,15 @@
   </attribute>
   
   <attribute name="silentAggregateSystemList" comment="silent entity types">
-     <variablelist  countFieldName="numberOfSilentAggregateTypes">
+     <list type="variable" countFieldName="numberOfSilentAggregateTypes">
        <classRef name="EntityType"/>
-    </variablelist> 
+    </list> 
     </attribute>
     
     <attribute name="silentEntitySystemList" comment="silent entity types">
-     <variablelist countFieldName="numberOfSilentEntityTypes">
+     <list type="variable" countFieldName="numberOfSilentEntityTypes">
        <classRef name="EntityType"/>
-    </variablelist> 
+    </list> 
     </attribute>
     
    <attribute name="numberOfVariableDatumRecords" comment="number of variable datum records">
@@ -4626,9 +4629,9 @@
   </attribute>
   
   <attribute name="variableDatumList" comment="variableDatums">
-     <variablelist countFieldName="numberOfVariableDatumRecords">
+     <list type="variable" countFieldName="numberOfVariableDatumRecords">
        <classRef name="VariableDatum"/>
-    </variablelist> 
+    </list> 
     </attribute>
   
  </class>
@@ -4665,9 +4668,9 @@
   </attribute>
   
    <attribute name="groupedEntityDescriptions" comment="GED records about each individual entity in the group. ^^^this is wrong  need a database lookup to find the actual size of the list elements">
-     <variablelist countFieldName="numberOfGroupedEntities">
+     <list type="variable" countFieldName="numberOfGroupedEntities">
        <classRef name="VariableDatum"/>
-    </variablelist> 
+    </list> 
     </attribute>
 
 </class>
@@ -4708,9 +4711,9 @@
   </attribute>
 
    <attribute name="recordSets" comment="^^^This is wrong the RecordSet class needs more work">
-     <variablelist countFieldName="numberOfRecordSets">
+     <list type="variable" countFieldName="numberOfRecordSets">
        <classRef name="RecordSet"/>
-    </variablelist> 
+    </list> 
     </attribute>
 
 </class>
@@ -4804,15 +4807,15 @@
    </attribute>
    
     <attribute name="perimeterPoints" comment="perimeter points for the minefield">
-     <variablelist countFieldName="numberOfPerimeterPoints">
+     <list type="variable" countFieldName="numberOfPerimeterPoints">
        <classRef name="Vector2Float"/>
-    </variablelist> 
+    </list> 
     </attribute>
     
      <attribute name="mineType" comment="Type of mines">
-     <variablelist  countFieldName="numberOfMineTypes">
+     <list type="variable" countFieldName="numberOfMineTypes">
        <classRef name="EntityType"/>
-    </variablelist> 
+    </list> 
     </attribute>
    
    </class>
@@ -4856,15 +4859,15 @@
    </attribute>
 
  <attribute name="requestedPerimeterPoints" comment="perimeter points of request">
-     <variablelist countFieldName="numberOfPerimeterPoints">
+     <list type="variable" countFieldName="numberOfPerimeterPoints">
        <classRef name="Vector2Float"/>
-    </variablelist> 
+    </list> 
     </attribute>
     
     <attribute name="sensorTypes" comment="Sensor types, each 16 bits long">
-     <variablelist countFieldName="numberOfSensorTypes">
+     <list type="variable" countFieldName="numberOfSensorTypes">
        <classRef name="TwoByteChunk"/>
-    </variablelist> 
+    </list> 
     </attribute>
 </class>
 -->
@@ -4920,9 +4923,9 @@
    </attribute>
    
     <attribute name="sensorTypes" comment="Sensor types, each 16 bits long">
-     <variablelist countFieldName="numberOfSensorTypes">
+     <list type="variable" countFieldName="numberOfSensorTypes">
        <classRef name="TwoByteChunk"/>
-    </variablelist> 
+    </list> 
     </attribute>
    
     <attribute name="pad3" comment="Padding to get things 32-bit aligned. ^^^this is wrong dyanmically sized padding needed">
@@ -4930,9 +4933,9 @@
    </attribute>
    
    <attribute name="mineLocation" comment="Mine locations">
-     <variablelist countFieldName="numberOfMinesInThisPdu">
+     <list type="variable" countFieldName="numberOfMinesInThisPdu">
        <classRef name="Vector3Float"/>
-    </variablelist> 
+    </list> 
     </attribute>
     
     </class>
@@ -4961,9 +4964,9 @@
    </attribute>
    
     <attribute name="missingPduSequenceNumbers" comment="PDU sequence numbers that were missing">
-     <variablelist countFieldName="numberOfMissingPdus">
+     <list type="variable" countFieldName="numberOfMissingPdus">
        <classRef name="EightByteChunk"/>
-    </variablelist> 
+    </list> 
     </attribute>
     
     </class>
@@ -5009,9 +5012,9 @@
    </attribute>
    
    <attribute name="environmentRecords" comment="environemt records">
-     <variablelist countFieldName="numberOfEnvironmentRecords">
+     <list type="variable" countFieldName="numberOfEnvironmentRecords">
        <classRef name="Environment"/>
-    </variablelist> 
+    </list> 
     </attribute>
 
     </class>
@@ -5080,9 +5083,9 @@
    </attribute>
    
      <attribute name="gridDataList" comment="Grid data ^^^This is wrong">
-     <variablelist  countFieldName="numberOfGridAxes">
+     <list type="variable" countFieldName="numberOfGridAxes">
        <classRef name="GridAxisRecord"/>
-    </variablelist> 
+    </list> 
     </attribute>
 
 </class>
@@ -5186,9 +5189,9 @@
    </attribute>
 
      <attribute name="linearSegmentParameters" comment="Linear segment parameters">
-     <variablelist countFieldName="numberOfSegments">
+     <list type="variable" countFieldName="numberOfSegments">
        <classRef name="LinearSegmentParameter"/>
-    </variablelist> 
+    </list> 
     </attribute>
   
     </class>
@@ -5244,9 +5247,9 @@
    </attribute>
    
     <attribute name="objectLocation" comment="location of object">
-     <variablelist countFieldName="numberOfPoints">
+     <list type="variable" countFieldName="numberOfPoints">
        <classRef name="Vector3Double"/>
-    </variablelist> 
+    </list> 
     </attribute>
     
 </class>
@@ -5428,15 +5431,15 @@
    
    
      <attribute name="fixedDatumRecords" comment="Fixed datum records">
-     <variablelist  countFieldName="numberOfFixedDatumRecords">
+     <list type="variable" countFieldName="numberOfFixedDatumRecords">
        <classRef name="FixedDatum"/>
-    </variablelist> 
+    </list> 
     </attribute>
     
     <attribute name="variableDatumRecords" comment="Variable datum records">
-     <variablelist countFieldName="numberOfVariableDatumRecords">
+     <list type="variable" countFieldName="numberOfVariableDatumRecords">
        <classRef name="VariableDatum"/>
-    </variablelist> 
+    </list> 
     </attribute>
     
     </class>
@@ -5464,15 +5467,15 @@
    
    
      <attribute name="fixedDatumRecords" comment="Fixed datum records">
-     <variablelist countFieldName="numberOfFixedDatumRecords">
+     <list type="variable" countFieldName="numberOfFixedDatumRecords">
        <classRef name="FixedDatum"/>
-    </variablelist> 
+    </list> 
     </attribute>
     
     <attribute name="variableDatumRecords" comment="Variable datum records">
-     <variablelist countFieldName="numberOfVariableDatumRecords">
+     <list type="variable" countFieldName="numberOfVariableDatumRecords">
        <classRef name="VariableDatum"/>
-    </variablelist> 
+    </list> 
     </attribute>
 
 </class>
@@ -5511,15 +5514,15 @@
    </attribute>
    
      <attribute name="fixedDatumRecords" comment="Fixed datum records">
-     <variablelist  countFieldName="numberOfFixedDatumRecords">
+     <list type="variable" countFieldName="numberOfFixedDatumRecords">
        <classRef name="FixedDatum"/>
-    </variablelist> 
+    </list> 
     </attribute>
     
     <attribute name="variableDatumRecords" comment="Variable datum records">
-     <variablelist countFieldName="numberOfVariableDatumRecords">
+     <list type="variable" countFieldName="numberOfVariableDatumRecords">
        <classRef name="VariableDatum"/>
-    </variablelist> 
+    </list> 
     </attribute>
 
 </class>
@@ -5555,15 +5558,15 @@
    </attribute>
    
      <attribute name="fixedDatumRecords" comment="Fixed datum records">
-     <variablelist countFieldName="numberOfFixedDatumRecords">
+     <list type="variable" countFieldName="numberOfFixedDatumRecords">
        <classRef name="FixedDatum"/>
-    </variablelist> 
+    </list> 
     </attribute>
     
     <attribute name="variableDatumRecords" comment="Variable datum records">
-     <variablelist countFieldName="numberOfVariableDatumRecords">
+     <list type="variable" countFieldName="numberOfVariableDatumRecords">
        <classRef name="VariableDatum"/>
-    </variablelist> 
+    </list> 
     </attribute>
 </class>
 
@@ -5598,15 +5601,15 @@
    </attribute>
    
      <attribute name="fixedDatumRecords" comment="Fixed datum records">
-     <variablelist countFieldName="numberOfFixedDatumRecords">
+     <list type="variable" countFieldName="numberOfFixedDatumRecords">
        <classRef name="FixedDatum"/>
-    </variablelist> 
+    </list> 
     </attribute>
     
     <attribute name="variableDatumRecords" comment="Variable datum records">
-     <variablelist countFieldName="numberOfVariableDatumRecords">
+     <list type="variable" countFieldName="numberOfVariableDatumRecords">
        <classRef name="VariableDatum"/>
-    </variablelist> 
+    </list> 
     </attribute>
   
 </class>
@@ -5634,15 +5637,15 @@
    </attribute>
    
      <attribute name="fixedDatumRecords" comment="Fixed datum records">
-     <variablelist countFieldName="numberOfFixedDatumRecords">
+     <list type="variable" countFieldName="numberOfFixedDatumRecords">
        <classRef name="FixedDatum"/>
-    </variablelist> 
+    </list> 
     </attribute>
     
     <attribute name="variableDatumRecords" comment="Variable datum records">
-     <variablelist countFieldName="numberOfVariableDatumRecords">
+     <list type="variable" countFieldName="numberOfVariableDatumRecords">
        <classRef name="VariableDatum"/>
-    </variablelist> 
+    </list> 
     </attribute>
     
     </class>
@@ -5662,15 +5665,15 @@
    </attribute>
    
      <attribute name="fixedDatumRecords" comment="Fixed datum records">
-     <variablelist countFieldName="numberOfFixedDatumRecords">
+     <list type="variable" countFieldName="numberOfFixedDatumRecords">
        <classRef name="FixedDatum"/>
-    </variablelist> 
+    </list> 
     </attribute>
     
     <attribute name="variableDatumRecords" comment="Variable datum records">
-     <variablelist countFieldName="numberOfVariableDatumRecords">
+     <list type="variable" countFieldName="numberOfVariableDatumRecords">
        <classRef name="VariableDatum"/>
-    </variablelist> 
+    </list> 
     </attribute>
 </class>
 
@@ -5708,9 +5711,9 @@
    </attribute>
    
     <attribute name="recordIDs" comment="record IDs">
-     <variablelist countFieldName="numberOfRecords">
+     <list type="variable" countFieldName="numberOfRecords">
        <classRef name="FourByteChunk"/>
-    </variablelist> 
+    </list> 
     </attribute>
 
 </class>
@@ -5743,9 +5746,9 @@
    </attribute>
 
      <attribute name="recordSets" comment="record sets">
-     <variablelist countFieldName="numberOfRecordSets">
+     <list type="variable" countFieldName="numberOfRecordSets">
        <classRef name="RecordSet"/>
-    </variablelist> 
+    </list> 
     </attribute>
     
     </class>
@@ -5763,9 +5766,9 @@
    </attribute>
         
      <attribute name="pdus" comment="List of PDUs">
-     <variablelist countFieldName="numberOfPdus">
+     <list type="variable" countFieldName="numberOfPdus">
        <classRef name="Pdu"/>
-    </variablelist> 
+    </list> 
     </attribute>
         
     </class>
@@ -5871,16 +5874,16 @@
 
    <attribute name="BeamAntennaPatternRecords"
               comment="DE Beam Antenna Pattern Records.">
-     <variablelist  countFieldName="BeamAntennaPatternRecordCount">
+     <list type="variable" countFieldName="BeamAntennaPatternRecordCount">
        <classRef name="DeBeamAntennaPatternRecord"/>
-     </variablelist>
+     </list>
    </attribute>
 
    <attribute name="DeTargetEnergyDepositionRecords"
               comment="DE Beam Antenna Pattern Records.">
-     <variablelist countFieldName="DeTargetEnergyDepositionRecordCount">
+     <list type="variable" countFieldName="DeTargetEnergyDepositionRecordCount">
        <classRef name="DeTargetEnergyDepositionRecord"/>
-     </variablelist>
+     </list>
    </attribute>
 
  </class>
@@ -5959,9 +5962,9 @@
    </attribute>
 
    <attribute name="DeRecords" comment="DE Records variable list.">
-     <variablelist  countFieldName="DeRecordCount">
+     <list type="variable" countFieldName="DeRecordCount">
        <classRef name="DeRecord" recordType="RecordType"/>
-     </variablelist>
+     </list>
    </attribute>
 
  </class>
