@@ -1888,11 +1888,11 @@
   </attribute>
 
   <attribute name="pduLength" comment="Length, in bytes, of the PDU. Changed name from length to avoid use of Hibernate QL reserved word.">
-    <primitive type="unsigned byte"/>
+    <primitive type="unsigned short"/>
   </attribute>
 
    <attribute name="pduStatus" comment="PDU Status Record. Described in 6.2.67. This field is not present in earlier DIS versions ">
-    <primitive type="unsigned short"/>
+    <primitive type="unsigned byte"/>
   </attribute>
  
   <attribute name="padding" comment="zero filled array of padding">
