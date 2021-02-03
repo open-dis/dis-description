@@ -4451,7 +4451,7 @@
     <primitive type= "unsigned short" initialValue="0"/>
   </attribute>
   
-  <attribute name="receivedPoser" comment="received power">
+  <attribute name="receivedPower" comment="received power">
     <primitive type= "float"/>
   </attribute>
   
