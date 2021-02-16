@@ -918,35 +918,17 @@
   
 </class>
 
-
-
 <class name="EntityIdentifier"
-        inheritsFrom="root" 
+        inheritsFrom="SimulationAddress" 
         comment="Entity Identifier. Unique ID for entities in the world. Consists of an simulation address and a entity number. Section 6.2.28.">
-    
-   <attribute name="simulationAddress" comment="Site and application IDs">
-     <classRef name="SimulationAddress"/>
-  </attribute>
                 
-  <attribute name="entityNumber" comment="Entity number">
+  <attribute name="entityNumber" comment="Entity number ID">
     <primitive type= "unsigned short"/>
   </attribute>
 
 </class>
 
-<class name="EntityID" inheritsFrom="root" comment="more laconically named EntityIdentifier">
-
-  <attribute name="siteID" comment="Site ID">
-    <primitive type= "unsigned short"/>
-  </attribute>
-  
-  <attribute name="applicationID" comment="application number ID">
-    <primitive type= "unsigned short"/>
-  </attribute>
-  
-  <attribute name="entityID" comment="Entity number ID">
-    <primitive type= "unsigned short"/>
-  </attribute>
+<class name="EntityID" inheritsFrom="EntityIdentifier" comment="Entity Identifier. Unique ID for entities in the world. Consists of an simulation address and a entity number. Section 6.2.28. more laconically named EntityIdentifier">
   
 </class>
 
@@ -1104,17 +1086,23 @@
 </class>
 
 <class name="EventIdentifier" 
-       inheritsFrom="root" 
+       inheritsFrom="SimulationAddress" 
        comment="Identifies an event in the world. Use this format for every PDU EXCEPT the LiveEntityPdu. Section 6.2.34.">
 
-    <attribute name="simulationAddress" comment="Site and application IDs">
-     <classRef name="SimulationAddress"/>
+  <attribute name="simulationAddress" comment="Site and application IDs">
+    <classRef name="SimulationAddress"/>
   </attribute>
   
-   <attribute name="eventNumber">
-        <primitive type="unsigned short"/>
-    </attribute>
+  <attribute name="eventNumber" comment="Event number ID">
+    <primitive type="unsigned short"/>
+  </attribute>
     
+</class>
+
+<class name="EventID" 
+       inheritsFrom="EventIdentifier" 
+       comment="Synonmous with EventIdentifier">
+
 </class>
 
 <class name="EventIdentifierLiveEntity" 
@@ -2151,13 +2139,13 @@
        inheritsFrom="root" 
        comment="A Simulation Address record shall consist of the Site Identification number and the Application Identification number. Section 6.2.79 ">
 
- <attribute name="site" comment="A site is defined as a facility, installation, organizational unit or a geographic location that has one or more simulation applications capable of participating in a distributed event. ">
-   <primitive type="unsigned short"/>
- </attribute>
+  <attribute name="site" comment="A site is defined as a facility, installation, organizational unit or a geographic location that has one or more simulation applications capable of participating in a distributed event. ">
+    <primitive type="unsigned short"/>
+  </attribute>
 
- <attribute name="application" comment="An application is defined as a software program that is used to generate and process distributed simulation data including live, virtual and constructive data.">
-  <primitive type="unsigned short"/>
- </attribute>
+  <attribute name="application" comment="An application is defined as a software program that is used to generate and process distributed simulation data including live, virtual and constructive data.">
+    <primitive type="unsigned short"/>
+  </attribute>
 
 </class>
 
@@ -2465,8 +2453,16 @@
     <primitive type="unsigned int" />
   </attribute>
   
-   <attribute name="parameterValue" comment="The definition of the 64 bits shall be determined based on the type of parameter specified in the Parameter Type field ">
-    <primitive type="unsigned long" />
+  <!-- <attribute name="parameterMetric" comment="the transformation this parameter applies to the articulated part">
+    <primitive type="unsigned byte" />
+  </attribute> -->
+
+  <attribute name="parameterValue" comment="The definition of the 64 bits shall be determined based on the type of parameter specified in the Parameter Type field ">
+    <primitive type="float" />
+  </attribute>
+
+  <attribute name="padding" comment="32 bits of unused padding">
+    <primitive type="unsigned int" />
   </attribute>
 
 </class>
@@ -4262,59 +4258,8 @@
 <class name="RadioCommunicationsFamilyPdu" inheritsFrom="Pdu"
        comment=" Abstract superclass for radio communications PDUs. Section 7.7">
   
-  <initialValue name="protocolFamily" value="4"/> 
-  
-</class>
+  <initialValue name="protocolFamily" value="4"/>
 
-
-<class name="IntercomSignalPdu" inheritsFrom="RadioCommunicationsFamilyPdu"
-       comment=" Actual transmission of intercome voice data. Section 7.7.5. COMPLETE">
-   
-  <initialValue name="pduType" value="31"/>
-   
-  <attribute name="entityID" comment="entity ID">
-    <classRef name= "EntityID"/>
-  </attribute>
-  
-  <attribute name="communicationsDeviceID" comment="ID of communications device">
-    <primitive type= "unsigned short"/>
-  </attribute>
-  
-   <attribute name="encodingScheme" comment="encoding scheme">
-    <primitive type= "unsigned short"/>
-  </attribute>
-  
-   <attribute name="tdlType" comment="tactical data link type">
-    <primitive type= "unsigned short"/>
-  </attribute>
-  
-   <attribute name="sampleRate" comment="sample rate">
-    <primitive type= "unsigned int"/>
-  </attribute>
-  
-   <attribute name="dataLength" comment="data length">
-    <primitive type= "unsigned short"/>
-  </attribute>
-  
-  <attribute name="samples" comment="samples">
-    <primitive type= "unsigned short"/>
-  </attribute>
- 
-  <attribute name="data" comment="data bytes">
-     <list type="variable" countFieldName="dataLength">
-       <classRef name="OneByteChunk"/>
-    </list> 
-    </attribute>
-</class>
-
-
-
-
-<class name="TransmitterPdu" inheritsFrom="RadioCommunicationsFamilyPdu"
-       comment="Detailed information about a radio transmitter. This PDU requires manually written code to complete, since the modulation parameters are of variable length. Section 7.7.2 UNFINISHED">
-  
-  <initialValue name="pduType" value="25"/> 
-  
   <attribute name="radioReferenceID" comment="ID of the entitythat is the source of the communication">
     <classRef name="EntityID"/>
   </attribute> 
@@ -4322,8 +4267,22 @@
    <attribute name="radioNumber" comment="particular radio within an entity">
     <primitive type= "unsigned short"/>
   </attribute>
+  
+</class>
+
+<class name="IntercomSignalPdu" inheritsFrom="SignalPdu"
+       comment=" Actual transmission of intercome voice data. Section 7.7.5. COMPLETE">
+   
+  <initialValue name="pduType" value="31"/>
+
+</class>
+
+<class name="TransmitterPdu" inheritsFrom="RadioCommunicationsFamilyPdu"
+       comment="Detailed information about a radio transmitter. This PDU requires manually written code to complete, since the modulation parameters are of variable length. Section 7.7.2 UNFINISHED">
+  
+  <initialValue name="pduType" value="25"/> 
             
-  <attribute name="radioEntityType" comment="Type of radio">
+  <attribute name="radioType" comment="Type of radio">
     <classRef name="EntityType"/>
   </attribute>
   
@@ -4334,11 +4293,11 @@
   <attribute name="inputSource" comment="input source">
     <primitive type= "unsigned byte"/>
   </attribute>
-  
-  <attribute name="variableTransmitterParameterCount" comment="count field">
-    <primitive type= "unsigned short" default="0"/>
-  </attribute>
-  
+
+  <attribute name="variableTransmitterParameterLength" comment="Length of additional information about a specific transmitter that is not otherwise part of the Transmitter PDU">
+    <primitive type="unsigned short"/>
+  </attribute> 
+
   <attribute name="antennaLocation" comment="Location of antenna">
     <classRef name="Vector3Double"/>
   </attribute> 
@@ -4351,19 +4310,19 @@
     <primitive type= "unsigned short"/>
   </attribute>
   
-  <attribute name="antennaPatternCount" comment="atenna pattern length">
+  <attribute name="antennaPatternLength" comment="antenna pattern length">
     <primitive type= "unsigned short"/>
   </attribute>
   
-  <attribute name="frequency" comment="frequency">
+  <attribute name="frequency" comment="Center frequency being used in hertz">
     <primitive type= "unsigned long"/>
   </attribute>
   
-  <attribute name="transmitFrequencyBandwidth" comment="transmit frequency Bandwidth">
+  <attribute name="transmitFrequencyBandwidth" comment="transmit frequency Bandwidth in hertz">
     <primitive type= "float"/>
   </attribute>
   
-  <attribute name="power" comment="transmission power">
+  <attribute name="power" comment="transmission power in decibel-milliwatts">
     <primitive type= "float"/>
   </attribute>
   
@@ -4379,26 +4338,26 @@
     <primitive type= "unsigned short"/>
   </attribute>
   
-  <attribute name="modulationParameterCount" comment="how many modulation parameters we have">
+  <attribute name="modulationParameterLength" comment="how many modulation parameters we have">
     <primitive type= "unsigned byte"/>
+  </attribute>
+  
+  <attribute name="padding1" comment="padding1">
+    <primitive type= "unsigned byte" defaultValue="0"/>
   </attribute>
   
   <attribute name="padding2" comment="padding2">
     <primitive type= "unsigned short" defaultValue="0"/>
   </attribute>
   
-  <attribute name="padding3" comment="padding3">
-    <primitive type= "unsigned byte" defaultValue="0"/>
-  </attribute>
-  
   <attribute name="modulationParametersList" comment="variable length list of modulation parameters">
-   <list type="variable" countFieldName="modulationParameterCount">
+   <list type="variable" countFieldName="modulationParameterLength">
      <classRef name="Vector3Float"/>
    </list> 
   </attribute>
   
   <attribute name="antennaPatternList" comment="variable length list of antenna pattern records">
-   <list type="variable" countFieldName="antennaPatternCount">
+   <list type="variable" countFieldName="antennaPatternLength">
      <classRef name="Vector3Float"/>
    </list> 
   </attribute>       
@@ -4408,7 +4367,7 @@
        comment=" Detailed information about a radio transmitter. This PDU requires manually written code to complete. The encodingScheme field can be used in multiple
        ways, which requires hand-written code to finish. Section 7.7.3. UNFINISHED">
     
-    <initialValue name="pduType" value="26"/> 
+  <initialValue name="pduType" value="26"/> 
     
   <attribute name="encodingScheme" comment="encoding scheme used, and enumeration">
     <primitive type= "unsigned short"/>
@@ -4422,12 +4381,12 @@
     <primitive type= "unsigned int"/>
   </attribute>
   
-  <attribute name="dataLength" comment="length od data">
-    <primitive type= "short"/>
+  <attribute name="dataLength" comment="length of data">
+    <primitive type= "unsigned short"/>
   </attribute>
   
   <attribute name="samples" comment="number of samples">
-    <primitive type= "short"/>
+    <primitive type= "unsigned short"/>
   </attribute>
   
   <attribute name="data" comment="list of eight bit values">
@@ -4455,19 +4414,19 @@
     <primitive type= "float"/>
   </attribute>
   
-  <attribute name="transmitterEntityId" comment="ID of transmitter">
+  <attribute name="transmitterRadioReferenceId" comment="ID of transmitter">
     <classRef name="EntityID"/>
   </attribute>
   
-  <attribute name="transmitterRadioId" comment="ID of transmitting radio">
+  <attribute name="transmitterRadioNumber" comment="ID of transmitting radio">
     <primitive type= "unsigned short"/>
   </attribute>
     
 </class>
 
 
-<class name="IntercomControlPdu" inheritsFrom="RadioCommunicationsFamilyPdu"
-       comment=" Detailed inofrmation about the state of an intercom device and the actions it is requestion 
+<class name="IntercomControlPdu" inheritsFrom="Pdu"
+       comment=" Detailed information about the state of an intercom device and the actions it is requestion 
        of another intercom device, or the response to a requested action. Required manual intervention to fix the intercom parameters,
        which can be of varialbe length. Section 7.7.5 UNFINSISHED">
    
@@ -4481,12 +4440,12 @@
     <primitive type= "unsigned byte"/>
   </attribute>
   
-  <attribute name="sourceEntityID" comment="Source entity ID">
+  <attribute name="sourceIntercomReferenceID" comment="Source entity ID entity or object that this intercom is attached to">
     <classRef name= "EntityID"/>
   </attribute>
   
-  <attribute name="sourceCommunicationsDeviceID" comment="The specific intercom device being simulated within an entity.">
-    <primitive type= "unsigned byte"/>
+  <attribute name="sourceIntercomNumber" comment="The specific intercom device being simulated within an entity.">
+    <primitive type= "unsigned short"/>
   </attribute>
   
    <attribute name="sourceLineID" comment="Line number to which the intercom control refers">
@@ -4505,14 +4464,18 @@
     <primitive type= "unsigned byte"/>
   </attribute>
 
-  <attribute name="masterEntityID" comment="eid of the entity that has created this intercom channel.">
+  <attribute name="masterIntercomReferenceID" comment="Reference to the entity that this intercom channel is attached to.">
     <classRef name= "EntityID"/>
   </attribute>
   
-  <attribute name="masterCommunicationsDeviceID" comment="specific intercom device that has created this intercom channel">
+  <attribute name="masterIntercomNumber" comment="specific master intercom device within the masterIntercomReferenceID that has created this intercom channel">
     <primitive type= "unsigned short"/>
   </attribute>
-  
+
+  <attribute name="masterChannelID" comment="This field identifies the unique intercom channel created by the master_intercom_reference_id and master_intercom_number.">
+    <primitive type= "unsigned short"/>
+  </attribute>
+
   <attribute name="intercomParametersLength" comment="number of intercom parameters">
     <primitive type= "unsigned int"/>
   </attribute>
