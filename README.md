@@ -8,7 +8,7 @@ A number of fixes, enhancements and other changes have been made directly to the
 And so at this point the umbilical cord has been cut between these schema files and the language implementations.
 Corrections are welcome to the schemas here, but please do not expect them to be automatically applied to the language repositories.
 Re-generating the source code from these schemas and re-applying the changes to those language repositories would be a messy job.
-Ideas are welcome, but at this point these schemas exist here for historical purposes only.
+Ideas are welcome, but at this point these schemas exist here primarily for historical purposes only.
 
 The repository has a very general name of "DISDescriptions" to leave open the possibility of using a format other than XML, such as JSON or ASN.1.
 
