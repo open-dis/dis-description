@@ -2,19 +2,24 @@
 
 Central repository for machine-readable descriptions of the DIS protocol.
 
+The files in this directory have been used with the xmlpg tool to auto-generate the source code found in the following github repositories; open-dis-java, open-dis-cpp, open-dis-python, open-dis-javascript.
+A number of fixes, enhancements and other changes have been made directly to the source code each language over the years.
+And so at this point the umbilical cord has been cut between these schema files and the language implementations.
+Corrections are welcome to the schemas here, but please do not expect them to be automatically applied to the language repositories.
+Re-generating the source code from these schemas and re-applying the changes to those language repositories would be a messy job.
+Ideas are welcome, but at this point these schemas exist here for historical purposes only.
+
+The repository has a very general name of "DISDescriptions" to leave open the possibility of using a format other than XML, such as JSON or ASN.1.
+
 ## DIS PDUs
 
-The DIS Protocol Data Units (PDUs) are binary messages with a defined
-format. For example the Entity State PDU has the Entity ID field 12
-bytes from the start, and consists of three unsigned short values:
-site, application, and entity. The combination of these three values
-together uniquely identifies an entity in the virtual world.
+The DIS Protocol Data Units (PDUs) are binary messages with a defined format.
+For example the Entity State PDU has the Entity ID field 12 bytes from the start, and consists of three unsigned short values: site, application, and entity.
+The combination of these three values together uniquely identifies an entity in the virtual world.
 
-The IEEE DIS standard describes the PDUs in prose rather than in a
-machine-readable format. The files in this directory describe the 
-format of the PDUs in a way that can be read by a computer and used 
-to generate a language implementation. For example this fragment of
-XML:
+The IEEE DIS standard describes the PDUs in prose rather than in a machine-readable format.
+The files in this directory describe the format of the PDUs in a way that can be read by a computer and used to generate a language implementation.
+For example this fragment of XML:
 ~~~~
 <class name="EntityID" inheritsFrom="root" comment="more laconically named EntityIdentifier">
 
@@ -32,10 +37,8 @@ XML:
   
 </class>
 ~~~~
-Can be read by a program and compiled into a lanaguage implementation
-like the below. Note that we have enough information to marshal and
-unmarshall the PDU--to change it from a binary representation to a 
-language representation, and from a Java object to a binary representation.
+Can be read by a program and compiled into a lanaguage implementation like the below.
+Note that we have enough information to marshal and unmarshall the PDU--to change it from a binary representation to a language representation, and from a Java object to a binary representation.
 
 ~~~~
 package edu.nps.moves.dis7;
@@ -137,17 +140,3 @@ public void unmarshal(DataInputStream dis)
 
 } // end of class
 ~~~~
-
-The files in this directory may be used by several language generators--Python, Java, C++, Javascript, and 
-so on, each of which generates different code similar to the above. One problem that can crop up is that 
-corrections to the XML file may appear in one 
-language implementation, but not others. What we want is a central place to keep the PDU
-descriptions that can be shared by all languages. In git this is usually done with a submodule.
-The repostory is set up to be automatically checked out when the git repository that contains
-it is checked out. This allows us to share the machine-readable PDU descriptions between
-multiple languages, and avoid unintended drift between languages.
-
-The repository has a very general name of "DISDescriptions" to leave open the possibility of
-using a format other than XML, such as JSON or ASN.1.
-
-See https://git-scm.com/book/en/v2/Git-Tools-Submodules for a description of git submodules.
