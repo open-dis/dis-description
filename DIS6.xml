@@ -1,31 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 
-<!-- XML description file for the DIS-1998 protocol. A few classes require manual clean up and intevention. -->
+<!-- XML description file for the DIS-1998 protocol. A few classes require manual clean up and intervention. -->
 <!-- Classes that need hand-modification include SignalPdu, TransmitterPdu, ElectromagneticEmissionPdu, etc -->
 
 <classes>
 
-<!-- Note that some of the java properties here may be overridden by system
- properties settings in the ant file. For example, the directory the generated
- source code is placed may be changed by the ant file. 
--->
+<!-- properties can be overridden with -Dxmlpg.generatedSourceDir="java/blah/blah"-->
 <java imports="java.util.*, java.io.*, edu.nps.moves.disenum.*, edu.nps.moves.disutil.*"
       package="edu.nps.moves.dis"
-      directory="src/main/java/edu/nps/moves/dis"
-      usesJaxb="true"
-      usesHibernate="true"/>
-
-<!-- properties can be overridden with -Dxmlpg.useHibernate="true", xmlpg.useJaxb="false", and
-     xmlpg.generatedSourceDir="java/blah/blah"
--->
- <!-- Use this for Java mobile applications, ie Android -->
- <!--
- <java imports="java.util.*, java.io.*"
-      package="edu.nps.moves.disandroid"
-      directory="java/main/edu/nps/moves/disandroid"
-      useJaxb="false"
-      useHibernate="false"/>
-  -->
+      directory="src/main/java/edu/nps/moves/dis"/>
 
 <!--PES added for C# support-->
 <csharp using="System, System.Collections.Generic, System.Text, System.Diagnostics, System.Xml.Serialization, DISnet.DataStreamUtilities"

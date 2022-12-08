@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 
-<!-- XML description file for the DIS-1995 protocol. A few classes require manual clean up and intevention. -->
+<!-- XML description file for the DIS-1995 protocol. A few classes require manual clean up and intervention. -->
 <!-- Classes that need hand-modification include SignalPdu, TransmitterPdu, ElectromagneticEmmissionPdu. -->
 
 <classes>

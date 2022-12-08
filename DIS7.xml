@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 
-<!-- XML description file for the DIS-2012 (Final DIS version 7) protocol. Some classes require manual clean up and intevention. -->
+<!-- XML description file for the DIS-2012 (Final DIS version 7) protocol. A few classes require manual clean up and intervention. -->
 
 <!-- This file is used by XMLPG, a fairly simple program that processes this XML file and generates
      a programming language source file, for example Java or C++. Almost all the work of writing a
@@ -19,17 +19,9 @@
 
 <classes>
 
-<!-- The Java-specific imports. Java also is capable of saving DIS to XML format via
-     the JAXB package, and saving to a SQL database via Hibernate. This makes the code
-     a little more complex, and it almost certianly won't work on mobile devices. The
-     annotations here are used only by XMLPG, the source code generation tool.
- -->
-
 <java imports="java.util.*, java.io.*, edu.nps.moves.disenum.*, edu.nps.moves.disutil.*"
       package="edu.nps.moves.dis"
-      directory="main/java/edu/nps/moves/dis"
-      usesJaxb="true"
-      usesHibernate="true"/>
+      directory="src/main/java/edu/nps/moves/dis7"/>
 
 <!-- csharp langauge specific packages. These are added information for xmlpg -->
 
